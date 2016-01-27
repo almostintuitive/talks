@@ -19,10 +19,9 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
     super.viewDidLoad()
     let pan = UIPanGestureRecognizer(target: self, action: "handlePan:")
     pan.delegate = self
-    view.addGestureRecognizer(pan)
     let pinch = UIPinchGestureRecognizer(target: self, action: "handlePinch:")
     pinch.delegate = self
-    view.addGestureRecognizer(pinch)
+    view.gestureRecognizers = [pan, pinch]
   }
   
 

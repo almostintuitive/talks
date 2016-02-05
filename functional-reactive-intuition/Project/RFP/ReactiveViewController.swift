@@ -32,7 +32,8 @@ class ReactiveViewController: UIViewController {
     let pinchEnded = pinch.rx_event.filter { gesture in gesture.state == .Ended }
     
     // condition: when both pan and pinch has begun
-    let bothGesturesStarted = Observable.of(panStarted, pinchStarted).merge(maxConcurrent: 1)
+    let bothGesturesStarted = Observable.combineLatest(panStarted, pinchStarted) { (_, _) -> Bool in return true }
+    
     // condition: when both pan and pinch ended
     let bothGesturesEnded = Observable.of(panEnded, pinchEnded).merge()
     

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Imperative View Controller-->
@@ -21,25 +22,39 @@
                                 <rect key="frame" x="225" y="225" width="150" height="150"/>
                                 <color key="backgroundColor" red="0.93333333730000001" green="0.19607843459999999" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="1HK-aG-Emd"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="ZZc-AV-HpB"/>
-                                    <constraint firstAttribute="height" constant="150" id="a72-te-vr6"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="c6s-cc-ctb"/>
+                                    <constraint firstAttribute="height" constant="150" id="FYn-YZ-Xlu"/>
+                                    <constraint firstAttribute="width" constant="150" id="kRU-C8-0Aw"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXH-Xd-ZIe">
+                                <rect key="frame" x="20" y="540" width="560" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Hpc-dS-237"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.27143002090000001" green="0.27774234689999999" blue="0.27774234689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LCN-Jc-T61" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2uk-cN-zg5"/>
-                            <constraint firstItem="LCN-Jc-T61" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="IbM-fB-nt6"/>
+                            <constraint firstItem="LCN-Jc-T61" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EiW-FR-Ikm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tXH-Xd-ZIe" secondAttribute="bottom" constant="20" id="Hfn-1z-SRA"/>
+                            <constraint firstItem="LCN-Jc-T61" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ie7-Q4-F8q"/>
+                            <constraint firstItem="tXH-Xd-ZIe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="L63-Ek-jHm"/>
+                            <constraint firstItem="tXH-Xd-ZIe" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="vmw-vw-22N"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="centerXConstraint" destination="EiW-FR-Ikm" id="d51-Zs-rLF"/>
+                        <outlet property="centerYConstraint" destination="Ie7-Q4-F8q" id="kJD-pM-tXS"/>
                         <outlet property="draggableView" destination="LCN-Jc-T61" id="Fgh-RR-Lfk"/>
+                        <outlet property="statusLabel" destination="tXH-Xd-ZIe" id="hot-y1-gCc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="357" y="585"/>
         </scene>
     </scenes>
 </document>

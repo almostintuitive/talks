@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
+class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, SetStatus {
     
     var panPresent = false
     var pinchPresent = false
@@ -30,23 +30,24 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.setStatus("Status: Waiting for Rotate & Pan")
     }
     
-    func handlePan(panGesture: UIPanGestureRecognizer) {
+    func handlePan(panGuesture: UIPanGestureRecognizer) {
         
         // Move the view
-        let translation = panGesture.translationInView(self.view)
+        let translation = panGuesture.translationInView(self.view)
         self.centerXConstraint.constant += translation.x
         self.centerYConstraint.constant += translation.y
         
-        panGesture.setTranslation(CGPointZero, inView: self.view)
+        panGuesture.setTranslation(CGPointZero, inView: self.view)
         
         //Handle our state
-        if panGesture.state == .Began && self.panPresent == false {
+        if panGuesture.state == .Began && self.panPresent == false {
             self.panPresent = true
             self.checkIfBothGesturesPresent()
-        } else if panGesture.state == .Ended {
+        } else if panGuesture.state == .Ended {
             self.panPresent = false
             self.stopTimerIfNeeded()
         }
@@ -93,14 +94,20 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
         self.setStatus("Tick: \(self.secondsLeft)")
     }
     
-    func setStatus(statusString:String) {
-        
-        print(statusString)
-        self.statusLabel.text = statusString
-    }
-    
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
+}
+
+protocol SetStatus {
+    var statusLabel:UILabel! {get set}
+    func setStatus(statusString:String)
+}
+
+extension SetStatus {
+    func setStatus(statusString:String) {
+        print(statusString)
+        self.statusLabel.text = statusString
+    }
 }

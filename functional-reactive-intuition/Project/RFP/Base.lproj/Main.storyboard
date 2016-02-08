@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Imperative View Controller-->
@@ -16,8 +16,27 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCN-Jc-T61">
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
+                                <color key="backgroundColor" red="0.93333333730000001" green="0.19607843459999999" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="1HK-aG-Emd"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="ZZc-AV-HpB"/>
+                                    <constraint firstAttribute="height" constant="150" id="a72-te-vr6"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="c6s-cc-ctb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LCN-Jc-T61" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2uk-cN-zg5"/>
+                            <constraint firstItem="LCN-Jc-T61" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="IbM-fB-nt6"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="draggableView" destination="LCN-Jc-T61" id="Fgh-RR-Lfk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

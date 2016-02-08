@@ -15,17 +15,21 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
   var gestureTimer: NSTimer?
   var secondsLeft = 3
   
+  @IBOutlet weak var draggableView: UIView!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     let pan = UIPanGestureRecognizer(target: self, action: "handlePan:")
     pan.delegate = self
-    let pinch = UIPinchGestureRecognizer(target: self, action: "handlePinch:")
+    let pinch = UIRotationGestureRecognizer(target: self, action: "handleRotate:")
     pinch.delegate = self
-    view.gestureRecognizers = [pan, pinch]
+    self.draggableView.gestureRecognizers = [pan, pinch]
   }
   
 
   func handlePan(panGesture: UIPanGestureRecognizer) {
+
+    //Handle our state
     if panGesture.state == .Began && self.panPresent == false {
       self.panPresent = true
       self.checkIfBothGesturesPresent()
@@ -33,17 +37,29 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
       self.panPresent = false
       self.stopTimerIfNeeded()
     }
+    
+    // Move the view
+    let translation = panGesture.translationInView(self.view)
+    panGesture.view!.center = CGPoint(x: panGesture.view!.center.x + translation.x, y: panGesture.view!.center.y + translation.y)
+    panGesture.setTranslation(CGPointZero, inView: self.view)
+    
   }
   
-  func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
-    if pinchGesture.state == .Began && self.pinchPresent == false {
-      self.pinchPresent = true
-      self.checkIfBothGesturesPresent()
-    } else if pinchGesture.state == .Ended {
-      self.pinchPresent = false
-      self.stopTimerIfNeeded()
+  func handleRotate(rotationGesture: UIRotationGestureRecognizer) {
+    
+    //Handle our state
+    if rotationGesture.state == .Began && self.pinchPresent == false {
+        self.pinchPresent = true
+        self.checkIfBothGesturesPresent()
+    } else if rotationGesture.state == .Ended {
+        self.pinchPresent = false
+        self.stopTimerIfNeeded()
     }
-  }
+    
+    // Move the view
+    rotationGesture.view!.transform = CGAffineTransformRotate(rotationGesture.view!.transform,rotationGesture.rotation)
+    rotationGesture.rotation = 0;
+}
   
   func checkIfBothGesturesPresent() {
     if self.pinchPresent == true && self.panPresent == true && self.gestureTimer == nil {

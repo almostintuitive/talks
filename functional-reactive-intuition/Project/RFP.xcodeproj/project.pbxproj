@@ -17,6 +17,7 @@
 		0C9FFB351C46625F00FD6C05 /* ReactiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9FFB341C46625F00FD6C05 /* ReactiveViewController.swift */; };
 		0CDDAB481C56C21C00D5DA3D /* ReactiveShortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDAB471C56C21C00D5DA3D /* ReactiveShortViewController.swift */; };
 		1FD5DC431C69D4B60050B3D9 /* ImperativeGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */; };
+		1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */; };
 		B48DEEE7DD9FCD9E8F77A13B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3577BA56804CC07EC782AF /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		0CDDAB471C56C21C00D5DA3D /* ReactiveShortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveShortViewController.swift; sourceTree = "<group>"; };
 		1AFF0EC5CED5C7CDACEDF353 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImperativeGestureReactor.swift; sourceTree = "<group>"; };
+		1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureReactor.swift; sourceTree = "<group>"; };
 		350C6FD680F3FD2ADAEA261D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA3577BA56804CC07EC782AF /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				0C18B4701C4454580081DFC5 /* LaunchScreen.storyboard */,
 				0C18B4731C4454580081DFC5 /* Info.plist */,
 				1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */,
+				1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */,
 			);
 			path = RFP;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				1FD5DC431C69D4B60050B3D9 /* ImperativeGestureReactor.swift in Sources */,
 				0C153D611C4F001300CBD947 /* Observable+Extension.swift in Sources */,
 				0CDDAB481C56C21C00D5DA3D /* ReactiveShortViewController.swift in Sources */,
+				1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */,
 				0C9FFB351C46625F00FD6C05 /* ReactiveViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

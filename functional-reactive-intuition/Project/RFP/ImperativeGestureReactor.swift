@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 
-@objc class ImperativeGestureReactor: NSObject {
+@objc class ImperativeGestureReactor: NSObject, GestureReactor {
 	
 	var panPresent = false
 	var pinchPresent = false

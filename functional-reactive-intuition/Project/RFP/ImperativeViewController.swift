@@ -10,7 +10,7 @@ import UIKit
 
 class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate {
 	
-  var gestureReactor = ImperativeGestureReactor()
+  var gestureReactor: GestureReactor = ImperativeGestureReactor()
 	
   override func viewDidLoad() {
     super.viewDidLoad()

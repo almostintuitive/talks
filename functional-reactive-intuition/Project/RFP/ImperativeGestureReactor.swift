@@ -4,6 +4,8 @@ import UIKit
 
 @objc class ImperativeGestureReactor: NSObject, GestureReactor {
 	
+	var delegate: GestureReactorDelegate?
+	
 	var panPresent = false
 	var pinchPresent = false
 	var gestureTimer: NSTimer?
@@ -33,7 +35,7 @@ import UIKit
 		if self.pinchPresent == true && self.panPresent == true && self.gestureTimer == nil {
 			self.secondsLeft = 3
 			self.gestureTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "tick:", userInfo: nil, repeats: true)
-			print("started")
+			delegate?.didStart()
 		}
 	}
 	
@@ -41,7 +43,7 @@ import UIKit
 		if let gestureTimer = gestureTimer {
 			gestureTimer.invalidate()
 			self.gestureTimer = nil
-			print("completed")
+			delegate?.didComplete()
 		}
 	}
 	
@@ -51,7 +53,7 @@ import UIKit
 			return
 		}
 		self.secondsLeft--
-		print("tick")
+		delegate?.didTick(0)
 	}
 
 }

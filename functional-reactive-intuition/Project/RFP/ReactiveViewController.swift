@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ReactiveViewController: UIViewController {
+class ReactiveViewController: UIViewController, GestureReactorDelegate {
 	
   var gestureReactor: GestureReactor?
 
@@ -24,10 +24,23 @@ class ReactiveViewController: UIViewController {
     view.gestureRecognizers = [pan, pinch]
 	
 	gestureReactor = ReactiveGestureReactor(panGesture: pan, pinchGesture: pinch)
+	gestureReactor?.delegate = self
 	pan.addTarget(gestureReactor!, action: "handlePan:")
 	pinch.addTarget(gestureReactor!, action: "handlePinch:")
   }
 	
+  func didStart() {
+    print("started")
+  }
+	
+  func didTick(count: Int) {
+    print("tick \(count)")
+  }
+	
+  func didComplete() {
+    print("completed")
+  }
+
 }
 
 extension ReactiveViewController: UIGestureRecognizerDelegate {

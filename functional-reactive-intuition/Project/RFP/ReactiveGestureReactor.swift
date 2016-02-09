@@ -6,12 +6,16 @@ import RxCocoa
 
 @objc class ReactiveGestureReactor: NSObject, GestureReactor {
 
+	var delegate: GestureReactorDelegate?
+	
 	var panVariable: Variable<UIGestureRecognizer>
 	var pinchVariable: Variable<UIGestureRecognizer>
 	
 	init(panGesture: UIPanGestureRecognizer, pinchGesture: UIPinchGestureRecognizer) {
 		panVariable = Variable(panGesture)
 		pinchVariable = Variable(pinchGesture)
+		
+		super.init()
 		
 		// condition: when pan has begun
 		let panStarted = panVariable.asObservable().filter { gesture in gesture.state == .Began }
@@ -31,9 +35,9 @@ import RxCocoa
 		
 		
 		// when bothGesturesStarted, do this:
-		bothGesturesStarted.subscribeNext { _ in
+		bothGesturesStarted.subscribeNext { [unowned self] _ in
 			
-			print("started")
+			self.delegate?.didStart()
 			// create a timer that ticks every second
 			let timer = Observable<Int>.timer(repeatEvery: 1)
 			// condition: but only three ticks
@@ -41,12 +45,12 @@ import RxCocoa
 			// condition: and also, stop it immediately when both pan and pinch ended
 			let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(bothGesturesEnded)
 			
-			timerThatTicksThreeAndStops.subscribe(onNext: { count in
+			timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
 				// when a tick happens, do this:
-				print("tick: \(count)")
-				}, onCompleted: {
+				self.delegate?.didTick(count)
+				}, onCompleted: { [unowned self] in
 					// when the timer completes, do this:
-					print("completed")
+					self.delegate?.didComplete()
 			})
 		}
 	}

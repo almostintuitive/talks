@@ -17,6 +17,8 @@ class ReactiveViewController: UIViewController, SetStatus {
     @IBOutlet weak var centerXConstraint: NSLayoutConstraint! //For updating the position of the box when dragging
     @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
     
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,28 +66,24 @@ class ReactiveViewController: UIViewController, SetStatus {
         }
         
         /// 
-        //
-        // Extra Code to manipulate move and rotate the subview.
+        ///
+        /// Extra Code to manipulate move and rotate the subview.
+        ///
+        /// Uses custom infix on CGPoint to '-' or '+' two together.
         
-        // Recognise Any Pan to move our view
-        let anyPan = pan.rx_event
-        _ = anyPan.bindNext { (guesture) -> Void in
-            let panGuesture = guesture as! UIPanGestureRecognizer
-            // Move the view
-            let translation = panGuesture.translationInView(self.view)
-            self.centerXConstraint.constant += translation.x
-            self.centerYConstraint.constant += translation.y
-            panGuesture.setTranslation(CGPointZero, inView: self.view)
-        }
+        let panLocation = pan.rx_event.map { $0.locationInView(self.view) - self.view.center }
+        panLocation.map { $0.x }
+            .bindTo(self.centerXConstraint.rx_constant)
+            .addDisposableTo(self.disposeBag)
         
-        // Recognise Any Pan to move our view
-        let anyRotate = rotate.rx_event
-        _ = anyRotate.subscribeNext { (guesture) -> Void in
-            let rotationGesture = guesture as! UIRotationGestureRecognizer
-            // Move the view
-            rotationGesture.view!.transform = CGAffineTransformRotate(rotationGesture.view!.transform,rotationGesture.rotation)
-            rotationGesture.rotation = 0;
-        }
+        panLocation.map { $0.y }
+            .bindTo(self.centerYConstraint.rx_constant)
+            .addDisposableTo(self.disposeBag)
+        
+        rotate.rx_event
+            .map { ($0 as! UIRotationGestureRecognizer).rotation }
+            .bindTo(self.draggableView.rx_rotate)
+            .addDisposableTo(self.disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {

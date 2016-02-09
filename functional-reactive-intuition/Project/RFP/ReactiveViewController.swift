@@ -17,21 +17,15 @@ class ReactiveViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-	let pan = UIPanGestureRecognizer(target: self, action: "handlePan:")
+	let pan = UIPanGestureRecognizer()
 	pan.delegate = self
-	let pinch = UIPinchGestureRecognizer(target: self, action: "handlePinch:")
+	let pinch = UIPinchGestureRecognizer()
 	pinch.delegate = self
     view.gestureRecognizers = [pan, pinch]
 	
 	gestureReactor = ReactiveGestureReactor(panGesture: pan, pinchGesture: pinch)
-  }
-	
-  func handlePan(panGesture: UIPanGestureRecognizer) {
-    gestureReactor?.handlePan(panGesture)
-  }
-	
-  func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
-	gestureReactor?.handlePinch(pinchGesture)
+	pan.addTarget(gestureReactor!, action: "handlePan:")
+	pinch.addTarget(gestureReactor!, action: "handlePinch:")
   }
 	
 }

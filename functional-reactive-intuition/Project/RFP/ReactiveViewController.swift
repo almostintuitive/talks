@@ -11,54 +11,29 @@ import RxSwift
 import RxCocoa
 
 class ReactiveViewController: UIViewController {
-  
+	
+  var gestureReactor: GestureReactor?
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let pan = UIPanGestureRecognizer()
-    pan.delegate = self
-    let pinch = UIPinchGestureRecognizer()
-    pinch.delegate = self
+	let pan = UIPanGestureRecognizer(target: self, action: "handlePan:")
+	pan.delegate = self
+	let pinch = UIPinchGestureRecognizer(target: self, action: "handlePinch:")
+	pinch.delegate = self
     view.gestureRecognizers = [pan, pinch]
-    
-    // condition: when pan has begun
-    let panStarted = pan.rx_event.filter { gesture in gesture.state == .Began }
-    // condition: when pan has ended
-    let panEnded = pan.rx_event.filter { gesture in gesture.state == .Ended }
-    
-    // condition: when pinch has begun
-    let pinchStarted = pinch.rx_event.filter { gesture in gesture.state == .Began }
-    // condition: when pinch has ended
-    let pinchEnded = pinch.rx_event.filter { gesture in gesture.state == .Ended }
-    
-    // condition: when both pan and pinch has begun
-    let bothGesturesStarted = Observable.combineLatest(panStarted, pinchStarted) { (_, _) -> Bool in return true }
-    
-    // condition: when both pan and pinch ended
-    let bothGesturesEnded = Observable.of(panEnded, pinchEnded).merge()
-    
-
-    // when bothGesturesStarted, do this:
-    bothGesturesStarted.subscribeNext { _ in
-      
-      print("started")
-      // create a timer that ticks every second
-      let timer = Observable<Int>.timer(repeatEvery: 1)
-      // condition: but only three ticks
-      let timerThatTicksThree = timer.take(3)
-      // condition: and also, stop it immediately when both pan and pinch ended
-      let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(bothGesturesEnded)
-      
-      timerThatTicksThreeAndStops.subscribe(onNext: { count in
-        // when a tick happens, do this:
-        print("tick: \(count)")
-      }, onCompleted: {
-        // when the timer completes, do this:
-        print("completed")
-      })
-    }
+	
+	gestureReactor = ReactiveGestureReactor(panGesture: pan, pinchGesture: pinch)
   }
-  
+	
+  func handlePan(panGesture: UIPanGestureRecognizer) {
+    gestureReactor?.handlePan(panGesture)
+  }
+	
+  func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
+	gestureReactor?.handlePinch(pinchGesture)
+  }
+	
 }
 
 extension ReactiveViewController: UIGestureRecognizerDelegate {

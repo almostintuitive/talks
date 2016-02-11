@@ -12,7 +12,7 @@ import RxCocoa
 
 class ReactiveViewController: UIViewController, GestureReactorDelegate {
 	
-	var gestureReactor: GestureReactor = ReactiveGestureReactor()
+	var gestureReactor: GestureReactor = ReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) })
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

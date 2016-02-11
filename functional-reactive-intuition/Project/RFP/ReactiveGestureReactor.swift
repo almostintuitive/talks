@@ -8,10 +8,13 @@ import RxCocoa
 
 	var delegate: GestureReactorDelegate?
 	
+	var timerCreator: ReactiveTimerCreator
+	
 	var panVariable: Variable<UIGestureRecognizerType?>
 	var pinchVariable: Variable<UIGestureRecognizerType?>
 	
-	override init() {
+	init(timerCreator: ReactiveTimerCreator) {
+		self.timerCreator = timerCreator
 		panVariable = Variable(nil)
 		pinchVariable = Variable(nil)
 		
@@ -39,7 +42,7 @@ import RxCocoa
 			
 			self.delegate?.didStart()
 			// create a timer that ticks every second
-			let timer = Observable<Int>.timer(repeatEvery: 1)
+			let timer = self.timerCreator(interval: 1)
 			// condition: but only three ticks
 			let timerThatTicksThree = timer.take(3)
 			// condition: and also, stop it immediately when both pan and pinch ended

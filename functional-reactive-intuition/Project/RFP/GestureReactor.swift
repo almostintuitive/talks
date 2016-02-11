@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 
-protocol GestureReactor: AnyObject {
+protocol GestureReactor {
 	
 	var delegate: GestureReactorDelegate? {get set}
 	

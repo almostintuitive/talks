@@ -14,12 +14,20 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, G
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let pan = UIPanGestureRecognizer(target: gestureReactor, action: "handlePan:")
+		let pan = UIPanGestureRecognizer(target: self, action: "handlePan:")
 		pan.delegate = self
-		let pinch = UIPinchGestureRecognizer(target: gestureReactor, action: "handlePinch:")
+		let pinch = UIPinchGestureRecognizer(target: self, action: "handlePinch:")
 		pinch.delegate = self
 		view.gestureRecognizers = [pan, pinch]
 		gestureReactor.delegate = self
+	}
+	
+	func handlePan(panGesture: UIPanGestureRecognizer) {
+		gestureReactor.handlePan(panGesture)
+	}
+	
+	func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
+		gestureReactor.handlePinch(pinchGesture)
 	}
 	
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {

@@ -20,6 +20,7 @@
 		1FD5DC431C69D4B60050B3D9 /* ImperativeGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */; };
 		1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */; };
 		1FD5DC471C69D7EE0050B3D9 /* ReactiveGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC461C69D7EE0050B3D9 /* ReactiveGestureReactor.swift */; };
+		1FE3E4351C6C782F00804CA2 /* TimerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E4341C6C782F00804CA2 /* TimerProtocol.swift */; };
 		B48DEEE7DD9FCD9E8F77A13B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3577BA56804CC07EC782AF /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImperativeGestureReactor.swift; sourceTree = "<group>"; };
 		1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureReactor.swift; sourceTree = "<group>"; };
 		1FD5DC461C69D7EE0050B3D9 /* ReactiveGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveGestureReactor.swift; sourceTree = "<group>"; };
+		1FE3E4341C6C782F00804CA2 /* TimerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerProtocol.swift; sourceTree = "<group>"; };
 		350C6FD680F3FD2ADAEA261D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA3577BA56804CC07EC782AF /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */,
 				1FD5DC461C69D7EE0050B3D9 /* ReactiveGestureReactor.swift */,
 				1FB180CB1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift */,
+				1FE3E4341C6C782F00804CA2 /* TimerProtocol.swift */,
 			);
 			path = RFP;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				0C153D611C4F001300CBD947 /* Observable+Extension.swift in Sources */,
 				0CDDAB481C56C21C00D5DA3D /* ReactiveShortViewController.swift in Sources */,
 				1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */,
+				1FE3E4351C6C782F00804CA2 /* TimerProtocol.swift in Sources */,
 				0C9FFB351C46625F00FD6C05 /* ReactiveViewController.swift in Sources */,
 				1FB180CC1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift in Sources */,
 			);

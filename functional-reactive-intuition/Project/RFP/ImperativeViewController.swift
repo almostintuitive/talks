@@ -10,7 +10,7 @@ import UIKit
 
 class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, GestureReactorDelegate {
 	
-	var gestureReactor: GestureReactor = ImperativeGestureReactor()
+	var gestureReactor: GestureReactor = ImperativeGestureReactor(timerCreator: { interval, repeats, onTick in Timer(interval: interval, repeats: repeats, onTick: onTick) })
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

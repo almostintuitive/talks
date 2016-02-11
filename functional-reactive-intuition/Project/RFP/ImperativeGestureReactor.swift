@@ -6,11 +6,18 @@ import UIKit
 	
 	var delegate: GestureReactorDelegate?
 	
+	var timerCreator: TimerCreator
+	
 	var panPresent = false
 	var pinchPresent = false
-	var gestureTimer: NSTimer?
+	var gestureTimer: TimerType?
 	var secondsLeft = 3
 
+	init(timerCreator: TimerCreator) {
+		self.timerCreator = timerCreator
+		super.init()
+	}
+	
 	func handlePan(panGesture: UIPanGestureRecognizerType) {
 		if panGesture.state == .Began && self.panPresent == false {
 			self.panPresent = true
@@ -34,7 +41,9 @@ import UIKit
 	func checkIfBothGesturesPresent() {
 		if self.pinchPresent == true && self.panPresent == true && self.gestureTimer == nil {
 			self.secondsLeft = 3
-			self.gestureTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "tick:", userInfo: nil, repeats: true)
+			self.gestureTimer = timerCreator(interval: 1, repeats: true, onTick: { [weak self] sender in
+				self?.tick(sender)
+			})
 			delegate?.didStart()
 		}
 	}
@@ -47,7 +56,7 @@ import UIKit
 		}
 	}
 	
-	func tick(timer: NSTimer) {
+	func tick(timer: TimerType) {
 		if self.secondsLeft <= 0 {
 			self.stopTimerIfNeeded()
 			return

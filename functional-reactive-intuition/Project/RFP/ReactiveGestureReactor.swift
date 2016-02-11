@@ -8,24 +8,24 @@ import RxCocoa
 
 	var delegate: GestureReactorDelegate?
 	
-	var panVariable: Variable<UIGestureRecognizer>
-	var pinchVariable: Variable<UIGestureRecognizer>
+	var panVariable: Variable<UIGestureRecognizer?>
+	var pinchVariable: Variable<UIGestureRecognizer?>
 	
-	init(panGesture: UIPanGestureRecognizer, pinchGesture: UIPinchGestureRecognizer) {
-		panVariable = Variable(panGesture)
-		pinchVariable = Variable(pinchGesture)
+	override init() {
+		panVariable = Variable(nil)
+		pinchVariable = Variable(nil)
 		
 		super.init()
 		
 		// condition: when pan has begun
-		let panStarted = panVariable.asObservable().filter { gesture in gesture.state == .Began }
+		let panStarted = panVariable.asObservable().filter { gesture in gesture?.state == .Began }
 		// condition: when pan has ended
-		let panEnded = panVariable.asObservable().filter { gesture in gesture.state == .Ended }
+		let panEnded = panVariable.asObservable().filter { gesture in gesture?.state == .Ended }
 		
 		// condition: when pinch has begun
-		let pinchStarted = pinchVariable.asObservable().filter { gesture in gesture.state == .Began }
+		let pinchStarted = pinchVariable.asObservable().filter { gesture in gesture?.state == .Began }
 		// condition: when pinch has ended
-		let pinchEnded = pinchVariable.asObservable().filter { gesture in gesture.state == .Ended }
+		let pinchEnded = pinchVariable.asObservable().filter { gesture in gesture?.state == .Ended }
 		
 		// condition: when both pan and pinch has begun
 		let bothGesturesStarted = Observable.combineLatest(panStarted, pinchStarted) { (_, _) -> Bool in return true }

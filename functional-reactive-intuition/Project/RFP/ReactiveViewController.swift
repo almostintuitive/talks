@@ -12,21 +12,16 @@ import RxCocoa
 
 class ReactiveViewController: UIViewController, GestureReactorDelegate {
 	
-  var gestureReactor: GestureReactor?
+  var gestureReactor: GestureReactor = ReactiveGestureReactor()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-	let pan = UIPanGestureRecognizer()
+	gestureReactor.delegate = self
+	let pan = UIPanGestureRecognizer(target: gestureReactor, action: "handlePan:")
 	pan.delegate = self
-	let pinch = UIPinchGestureRecognizer()
+	let pinch = UIPinchGestureRecognizer(target: gestureReactor, action: "handlePinch:")
 	pinch.delegate = self
     view.gestureRecognizers = [pan, pinch]
-	
-	gestureReactor = ReactiveGestureReactor(panGesture: pan, pinchGesture: pinch)
-	gestureReactor?.delegate = self
-	pan.addTarget(gestureReactor!, action: "handlePan:")
-	pinch.addTarget(gestureReactor!, action: "handlePinch:")
   }
 	
   func didStart() {

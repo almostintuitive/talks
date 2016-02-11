@@ -12,36 +12,36 @@ import RxCocoa
 
 class ReactiveViewController: UIViewController, GestureReactorDelegate {
 	
-  var gestureReactor: GestureReactor = ReactiveGestureReactor()
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-	gestureReactor.delegate = self
-	let pan = UIPanGestureRecognizer(target: gestureReactor, action: "handlePan:")
-	pan.delegate = self
-	let pinch = UIPinchGestureRecognizer(target: gestureReactor, action: "handlePinch:")
-	pinch.delegate = self
-    view.gestureRecognizers = [pan, pinch]
-  }
+	var gestureReactor: GestureReactor = ReactiveGestureReactor()
 	
-  func didStart() {
-    print("started")
-  }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		gestureReactor.delegate = self
+		let pan = UIPanGestureRecognizer(target: gestureReactor, action: "handlePan:")
+		pan.delegate = self
+		let pinch = UIPinchGestureRecognizer(target: gestureReactor, action: "handlePinch:")
+		pinch.delegate = self
+		view.gestureRecognizers = [pan, pinch]
+	}
 	
-  func didTick(count: Int) {
-    print("tick \(count)")
-  }
+	func didStart() {
+		print("started")
+	}
 	
-  func didComplete() {
-    print("completed")
-  }
-
+	func didTick(count: Int) {
+		print("tick \(count)")
+	}
+	
+	func didComplete() {
+		print("completed")
+	}
+	
 }
 
 extension ReactiveViewController: UIGestureRecognizerDelegate {
-  
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    return true
-  }
-  
+	
+	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+		return true
+	}
+	
 }

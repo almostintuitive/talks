@@ -12,7 +12,7 @@ import RxCocoa
 
 class ReactiveViewController: UIViewController, GestureReactorDelegate {
 	
-	var gestureReactor: GestureReactor = ReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) })
+	private var gestureReactor: GestureReactor = ReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) })
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -24,10 +24,12 @@ class ReactiveViewController: UIViewController, GestureReactorDelegate {
 		view.gestureRecognizers = [pan, pinch]
 	}
 	
+	// cannot be private due to use of target-action
 	func handlePan(panGesture: UIPanGestureRecognizer) {
 		gestureReactor.handlePan(panGesture)
 	}
 	
+	// cannot be private due to use of target-action
 	func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
 		gestureReactor.handlePinch(pinchGesture)
 	}

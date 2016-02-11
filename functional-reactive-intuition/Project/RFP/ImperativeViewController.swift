@@ -10,7 +10,7 @@ import UIKit
 
 class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, GestureReactorDelegate {
 	
-	var gestureReactor: GestureReactor = ImperativeGestureReactor(timerCreator: { interval, repeats, onTick in Timer(interval: interval, repeats: repeats, onTick: onTick) })
+	private var gestureReactor: GestureReactor = ImperativeGestureReactor(timerCreator: { interval, repeats, onTick in Timer(interval: interval, repeats: repeats, onTick: onTick) })
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -22,10 +22,12 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, G
 		gestureReactor.delegate = self
 	}
 	
+	// cannot be private due to use of target-action
 	func handlePan(panGesture: UIPanGestureRecognizer) {
 		gestureReactor.handlePan(panGesture)
 	}
 	
+	// cannot be private due to use of target-action
 	func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
 		gestureReactor.handlePinch(pinchGesture)
 	}

@@ -6,12 +6,12 @@ import UIKit
 	
 	var delegate: GestureReactorDelegate?
 	
-	var timerCreator: TimerCreator
+	private var timerCreator: TimerCreator
 	
-	var panPresent = false
-	var pinchPresent = false
-	var gestureTimer: TimerType?
-	var secondsLeft = 3
+	private var panPresent = false
+	private var pinchPresent = false
+	private var gestureTimer: TimerType?
+	private var secondsLeft = 3
 
 	init(timerCreator: TimerCreator) {
 		self.timerCreator = timerCreator
@@ -38,7 +38,7 @@ import UIKit
 		}
 	}
 	
-	func checkIfBothGesturesPresent() {
+	private func checkIfBothGesturesPresent() {
 		if self.pinchPresent == true && self.panPresent == true && self.gestureTimer == nil {
 			self.secondsLeft = 3
 			self.gestureTimer = timerCreator(interval: 1, repeats: true, onTick: { [weak self] sender in
@@ -48,7 +48,7 @@ import UIKit
 		}
 	}
 	
-	func stopTimerIfNeeded() {
+	private func stopTimerIfNeeded() {
 		if let gestureTimer = gestureTimer {
 			gestureTimer.invalidate()
 			self.gestureTimer = nil
@@ -56,7 +56,7 @@ import UIKit
 		}
 	}
 	
-	func tick(timer: TimerType) {
+	private func tick(timer: TimerType) {
 		if self.secondsLeft <= 0 {
 			self.stopTimerIfNeeded()
 			return

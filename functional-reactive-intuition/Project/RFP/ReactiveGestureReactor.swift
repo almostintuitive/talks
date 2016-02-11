@@ -8,10 +8,10 @@ import RxCocoa
 
 	var delegate: GestureReactorDelegate?
 	
-	var timerCreator: ReactiveTimerCreator
+	private var timerCreator: ReactiveTimerCreator
 	
-	var panVariable: Variable<UIGestureRecognizerType?>
-	var pinchVariable: Variable<UIGestureRecognizerType?>
+	private var panVariable: Variable<UIGestureRecognizerType?>
+	private var pinchVariable: Variable<UIGestureRecognizerType?>
 	
 	init(timerCreator: ReactiveTimerCreator) {
 		self.timerCreator = timerCreator

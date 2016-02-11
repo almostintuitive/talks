@@ -22,6 +22,7 @@ protocol TimerType {
 		timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "tick", userInfo: nil, repeats: repeats)
 	}
 	
+	// cannot be private due to use of target-action
 	func tick() {
 		onTick(sender: self)
 	}

@@ -11,7 +11,7 @@ import UIKit
 	var gestureTimer: NSTimer?
 	var secondsLeft = 3
 
-	func handlePan(panGesture: UIPanGestureRecognizer) {
+	func handlePan(panGesture: UIPanGestureRecognizerType) {
 		if panGesture.state == .Began && self.panPresent == false {
 			self.panPresent = true
 			self.checkIfBothGesturesPresent()
@@ -21,7 +21,7 @@ import UIKit
 		}
 	}
 	
-	func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
+	func handlePinch(pinchGesture: UIPinchGestureRecognizerType) {
 		if pinchGesture.state == .Began && self.pinchPresent == false {
 			self.pinchPresent = true
 			self.checkIfBothGesturesPresent()

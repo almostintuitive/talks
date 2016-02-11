@@ -6,8 +6,8 @@ protocol GestureReactor: AnyObject {
 	
 	var delegate: GestureReactorDelegate? {get set}
 	
-	func handlePan(panGesture: UIPanGestureRecognizer)
-	func handlePinch(pinchGesture: UIPinchGestureRecognizer)
+	func handlePan(panGesture: UIPanGestureRecognizerType)
+	func handlePinch(pinchGesture: UIPinchGestureRecognizerType)
 	
 }
 

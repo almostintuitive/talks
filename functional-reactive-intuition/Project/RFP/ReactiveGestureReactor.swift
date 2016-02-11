@@ -8,8 +8,8 @@ import RxCocoa
 
 	var delegate: GestureReactorDelegate?
 	
-	var panVariable: Variable<UIGestureRecognizer?>
-	var pinchVariable: Variable<UIGestureRecognizer?>
+	var panVariable: Variable<UIGestureRecognizerType?>
+	var pinchVariable: Variable<UIGestureRecognizerType?>
 	
 	override init() {
 		panVariable = Variable(nil)
@@ -55,11 +55,11 @@ import RxCocoa
 		}
 	}
 
-	func handlePan(panGesture: UIPanGestureRecognizer) {
+	func handlePan(panGesture: UIPanGestureRecognizerType) {
 		panVariable.value = panGesture
 	}
 	
-	func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
+	func handlePinch(pinchGesture: UIPinchGestureRecognizerType) {
 		pinchVariable.value = pinchGesture
 	}
 	

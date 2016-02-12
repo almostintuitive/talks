@@ -12,6 +12,7 @@ import UIKit
 	private var pinchPresent = false
 	private var gestureTimer: TimerType?
 	private var secondsLeft = 3
+	private var tickCount = 0
 
 	init(timerCreator: TimerCreator) {
 		self.timerCreator = timerCreator
@@ -52,6 +53,7 @@ import UIKit
 		if let gestureTimer = gestureTimer {
 			gestureTimer.invalidate()
 			self.gestureTimer = nil
+			self.tickCount = 0
 			delegate?.didComplete()
 		}
 	}
@@ -62,7 +64,8 @@ import UIKit
 			return
 		}
 		self.secondsLeft--
-		delegate?.didTick(0)
+		delegate?.didTick(tickCount)
+		tickCount += 1
 	}
 
 }

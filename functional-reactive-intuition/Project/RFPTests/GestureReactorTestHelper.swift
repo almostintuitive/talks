@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import RxSwift
 @testable import RFP
 
 
@@ -39,6 +40,25 @@ class MockTimer: TimerType {
 	
 	func mockExecuteOnTick() {
 		onTick(sender: self)
+	}
+	
+	func invalidate() {
+		invalidateCalled += 1
+	}
+	
+}
+
+
+class MockReactiveTimer: Variable<Int> {
+	
+	var invalidateCalled = 0
+
+	init(interval: NSTimeInterval) {
+		super.init(0)
+	}
+	
+	func mockExecuteOnTick() {
+		value += 1
 	}
 	
 	func invalidate() {

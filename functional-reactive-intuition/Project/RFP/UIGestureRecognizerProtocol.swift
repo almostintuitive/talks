@@ -12,7 +12,7 @@ protocol UIPanGestureRecognizerType: UIGestureRecognizerType {
 	
 }
 
-protocol UIPinchGestureRecognizerType: UIGestureRecognizerType {
+protocol UIRotationGestureRecognizerType: UIGestureRecognizerType {
 	
 }
 
@@ -24,6 +24,6 @@ extension UIPanGestureRecognizer: UIPanGestureRecognizerType {
 	
 }
 
-extension UIPinchGestureRecognizer: UIPinchGestureRecognizerType {
+extension UIRotationGestureRecognizer: UIRotationGestureRecognizerType {
 	
 }

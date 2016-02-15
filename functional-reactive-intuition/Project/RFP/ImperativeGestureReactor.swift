@@ -28,11 +28,11 @@ class ImperativeGestureReactor: GestureReactor {
 		}
 	}
 	
-	func handlePinch(pinchGesture: UIPinchGestureRecognizerType) {
-		if pinchGesture.state == .Began && self.pinchPresent == false {
+	func handleRotate(rotateGesture: UIRotationGestureRecognizerType) {
+		if rotateGesture.state == .Began && self.pinchPresent == false {
 			self.pinchPresent = true
 			self.checkIfBothGesturesPresent()
-		} else if pinchGesture.state == .Ended {
+		} else if rotateGesture.state == .Ended {
 			self.pinchPresent = false
 			self.stopTimerIfNeeded()
 		}

@@ -11,28 +11,28 @@ class ReactiveGestureReactor: GestureReactor {
 	private var timerCreator: ReactiveTimerCreator
 	
 	private var panVariable: Variable<UIGestureRecognizerType?>
-	private var pinchVariable: Variable<UIGestureRecognizerType?>
+	private var rotateVariable: Variable<UIGestureRecognizerType?>
 	
 	init(timerCreator: ReactiveTimerCreator) {
 		self.timerCreator = timerCreator
 		panVariable = Variable(nil)
-		pinchVariable = Variable(nil)
+		rotateVariable = Variable(nil)
 				
 		// condition: when pan has begun
 		let panStarted = panVariable.asObservable().filter { gesture in gesture?.state == .Began }
 		// condition: when pan has ended
 		let panEnded = panVariable.asObservable().filter { gesture in gesture?.state == .Ended }
 		
-		// condition: when pinch has begun
-		let pinchStarted = pinchVariable.asObservable().filter { gesture in gesture?.state == .Began }
-		// condition: when pinch has ended
-		let pinchEnded = pinchVariable.asObservable().filter { gesture in gesture?.state == .Ended }
+		// condition: when rotate has begun
+		let rotateStarted = rotateVariable.asObservable().filter { gesture in gesture?.state == .Began }
+		// condition: when rotate has ended
+		let rotateEnded = rotateVariable.asObservable().filter { gesture in gesture?.state == .Ended }
 		
-		// condition: when both pan and pinch has begun
-		let bothGesturesStarted = Observable.combineLatest(panStarted, pinchStarted) { (_, _) -> Bool in return true }
+		// condition: when both pan and rotate has begun
+		let bothGesturesStarted = Observable.combineLatest(panStarted, rotateStarted) { (_, _) -> Bool in return true }
 		
-		// condition: when both pan and pinch ended
-		let bothGesturesEnded = Observable.of(panEnded, pinchEnded).merge()
+		// condition: when both pan and rotate ended
+		let bothGesturesEnded = Observable.of(panEnded, rotateEnded).merge()
 		
 		
 		// when bothGesturesStarted, do this:
@@ -43,7 +43,7 @@ class ReactiveGestureReactor: GestureReactor {
 			let timer = self.timerCreator(interval: 1)
 			// condition: but only three ticks
 			let timerThatTicksThree = timer.take(3)
-			// condition: and also, stop it immediately when both pan and pinch ended
+			// condition: and also, stop it immediately when both pan and rotate ended
 			let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(bothGesturesEnded)
 			
 			timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
@@ -60,8 +60,8 @@ class ReactiveGestureReactor: GestureReactor {
 		panVariable.value = panGesture
 	}
 	
-	func handlePinch(pinchGesture: UIPinchGestureRecognizerType) {
-		pinchVariable.value = pinchGesture
+	func handleRotate(rotateGesture: UIRotationGestureRecognizerType) {
+		rotateVariable.value = rotateGesture
 	}
 	
 }

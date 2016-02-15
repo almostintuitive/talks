@@ -48,8 +48,8 @@ class RFPTests: XCTestCase {
 		XCTAssertNil(mockTimer)
 	}
 	
-	func testBeganPinchGesture() {
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+	func testBeganRotateGesture() {
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 0)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -59,10 +59,10 @@ class RFPTests: XCTestCase {
 		XCTAssertNil(mockTimer)
 	}
 	
-	func testBeganPanEndedPanBeganPinchGesture() {
+	func testBeganPanEndedPanBeganRotateGesture() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 0)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -74,7 +74,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGestures() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -84,10 +84,10 @@ class RFPTests: XCTestCase {
 		XCTAssertNotNil(mockTimer)
 	}
 	
-	func testBeganBothGesturesAndEndedPinch() {
+	func testBeganBothGesturesAndEndedRotate() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -99,7 +99,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedOnce() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
@@ -110,11 +110,11 @@ class RFPTests: XCTestCase {
 		XCTAssertNotNil(mockTimer)
 	}
 	
-	func testBeganBothGesturesAndTickedOnceAndEndedPinch() {
+	func testBeganBothGesturesAndTickedOnceAndEndedRotate() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 1)
@@ -126,7 +126,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedTwice() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		
@@ -140,7 +140,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedThrice() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
@@ -155,7 +155,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFrice() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
@@ -171,7 +171,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndPanEnded() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
@@ -188,7 +188,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedTwiceAndPanEndedAndPanBeganAgain() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
@@ -204,7 +204,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndPanBeganAgain_ignoreAdditionalBegans() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
@@ -220,7 +220,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndPanBeganAgain() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
@@ -237,7 +237,7 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndEndedPanGestureAndBeganPanAgain() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
@@ -253,15 +253,15 @@ class RFPTests: XCTestCase {
 		XCTAssertNotNil(mockTimer)
 	}
 	
-	func testBeganBothGesturesAndTickedFriceAndEndedPinchGestureAndBeganPinchAgain() {
+	func testBeganBothGesturesAndTickedFriceAndEndedRotateGestureAndBeganRotateAgain() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
@@ -273,14 +273,14 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgain() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
@@ -293,14 +293,14 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedOnce() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		
@@ -314,14 +314,14 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedFrice() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
@@ -338,20 +338,20 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedFriceAndEndedBothGestures() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
@@ -364,22 +364,22 @@ class RFPTests: XCTestCase {
 	
 	func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedFriceAndEndedBothGesturesAndStartedBothAgain() {
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
 		mockTimer!.mockExecuteOnTick()
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Ended))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
 		sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-		sut.handlePinch(MockPinchGestureRecognizer(state: .Began))
+		sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
 		sut.handlePan(MockPanGestureRecognizer(state: .Began))
 		
 		XCTAssertEqual(mockDelegate.didStartCalled, 3)

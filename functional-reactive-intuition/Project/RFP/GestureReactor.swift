@@ -7,7 +7,7 @@ protocol GestureReactor {
 	var delegate: GestureReactorDelegate? {get set}
 	
 	func handlePan(panGesture: UIPanGestureRecognizerType)
-	func handlePinch(pinchGesture: UIPinchGestureRecognizerType)
+	func handleRotate(rotateGesture: UIRotationGestureRecognizerType)
 	
 }
 

@@ -79,7 +79,7 @@ class MockPanGestureRecognizer: UIPanGestureRecognizerType {
 }
 
 
-class MockPinchGestureRecognizer: UIPinchGestureRecognizerType {
+class MockRotateGestureRecognizer: UIRotationGestureRecognizerType {
 	
 	var state: UIGestureRecognizerState
 	

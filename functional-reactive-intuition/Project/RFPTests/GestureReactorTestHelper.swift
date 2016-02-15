@@ -9,15 +9,15 @@ class MockGestureReactorDelegate: GestureReactorDelegate {
 	var didStartCalled = 0
 	var didTickCalled = 0
 	var didCompleteCalled = 0
-	var tickCounts: [Int] = []
+	var tickSecondsLefts: [Int] = []
 	
 	func didStart() {
 		didStartCalled += 1
 	}
 	
-	func didTick(count: Int) {
+	func didTick(secondsLeft: Int) {
 		didTickCalled += 1
-		tickCounts.append(count)
+		tickSecondsLefts.append(secondsLeft)
 	}
 	
 	func didComplete() {

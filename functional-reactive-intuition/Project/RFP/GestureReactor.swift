@@ -14,7 +14,7 @@ protocol GestureReactor {
 protocol GestureReactorDelegate {
 	
 	func didStart()
-	func didTick(count: Int)
+	func didTick(secondsLeft: Int)
 	func didComplete()
 	
 }

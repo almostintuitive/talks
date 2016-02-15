@@ -63,7 +63,7 @@ class ImperativeGestureReactor: GestureReactor {
 			return
 		}
 		self.secondsLeft--
-		delegate?.didTick(tickCount)
+		delegate?.didTick(secondsLeft)
 		tickCount += 1
 	}
 

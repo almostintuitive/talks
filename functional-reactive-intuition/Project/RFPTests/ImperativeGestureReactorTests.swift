@@ -32,7 +32,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 0)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 0)
 		XCTAssertNil(mockTimer)
 	}
@@ -43,7 +43,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 0)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 0)
 		XCTAssertNil(mockTimer)
 	}
@@ -54,7 +54,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 0)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 0)
 		XCTAssertNil(mockTimer)
 	}
@@ -67,7 +67,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 0)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 0)
 		XCTAssertNil(mockTimer)
 	}
@@ -79,7 +79,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -92,7 +92,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNil(mockTimer)
 	}
@@ -105,7 +105,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 1)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [0])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -119,7 +119,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 1)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNil(mockTimer)
 	}
@@ -133,7 +133,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 2)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -148,7 +148,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -164,7 +164,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNil(mockTimer)
 	}
@@ -181,7 +181,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNil(mockTimer)
 	}
@@ -197,7 +197,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 2)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -213,7 +213,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 0)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 0)
-		XCTAssertEqual(mockDelegate.tickCounts, [])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -230,7 +230,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 1)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 1)
 		XCTAssertNil(mockTimer)
 	}
@@ -248,7 +248,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -266,7 +266,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -286,7 +286,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 3)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -307,7 +307,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 4)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 1)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2, 0])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0, 2])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNotNil(mockTimer)
 	}
@@ -331,7 +331,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 6)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 2)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2, 0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0, 2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNil(mockTimer)
 	}
@@ -357,7 +357,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 2)
 		XCTAssertEqual(mockDelegate.didTickCalled, 6)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 2)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2, 0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0, 2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 2)
 		XCTAssertNil(mockTimer)
 	}
@@ -385,7 +385,7 @@ class RFPTests: XCTestCase {
 		XCTAssertEqual(mockDelegate.didStartCalled, 3)
 		XCTAssertEqual(mockDelegate.didTickCalled, 6)
 		XCTAssertEqual(mockDelegate.didCompleteCalled, 2)
-		XCTAssertEqual(mockDelegate.tickCounts, [0, 1, 2, 0, 1, 2])
+		XCTAssertEqual(mockDelegate.tickSecondsLefts, [2, 1, 0, 2, 1, 0])
 		XCTAssertEqual(mockTimerCreatorCalled, 3)
 		XCTAssertNotNil(mockTimer)
 	}

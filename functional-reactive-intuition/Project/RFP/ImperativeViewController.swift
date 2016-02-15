@@ -8,12 +8,9 @@
 
 import UIKit
 
-class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, SetStatus {
+class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, SetStatus, GestureReactorDelegate {
   
-  var panPresent = false
-  var pinchPresent = false
-  var gestureTimer: NSTimer?
-  var secondsLeft = 3
+  private var gestureReactor: GestureReactor = ImperativeGestureReactor(timerCreator: { interval, repeats, onTick in Timer(interval: interval, repeats: repeats, onTick: onTick) })
   
   @IBOutlet weak var draggableView: UIView!
   @IBOutlet weak var statusLabel: UILabel!
@@ -27,6 +24,7 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, S
     let rotate = UIRotationGestureRecognizer(target: self, action: "handleRotate:")
     rotate.delegate = self
     self.draggableView.gestureRecognizers = [pan, rotate]
+    gestureReactor.delegate = self
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -34,70 +32,41 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, S
     self.setStatus("Status: Waiting for Rotate & Pan")
   }
   
-  func handlePan(panGuesture: UIPanGestureRecognizer) {
-    
+  @objc private func handlePan(panGesture: UIPanGestureRecognizer) {
     // Move the view
-    let translation = panGuesture.translationInView(self.view)
+    let translation = panGesture.translationInView(self.view)
     self.centerXConstraint.constant += translation.x
     self.centerYConstraint.constant += translation.y
     
-    panGuesture.setTranslation(CGPointZero, inView: self.view)
-    
-    //Handle our state
-    if panGuesture.state == .Began && self.panPresent == false {
-      self.panPresent = true
-      self.checkIfBothGesturesPresent()
-    } else if panGuesture.state == .Ended {
-      self.panPresent = false
-      self.stopTimerIfNeeded()
-    }
+    panGesture.setTranslation(CGPointZero, inView: self.view)
+
+    gestureReactor.handlePan(panGesture)
   }
   
-  func handleRotate(rotationGesture: UIRotationGestureRecognizer) {
-    
+  @objc private func handleRotate(rotationGesture: UIRotationGestureRecognizer) {
     // Move the view
     rotationGesture.view!.transform = CGAffineTransformRotate(rotationGesture.view!.transform,rotationGesture.rotation)
     rotationGesture.rotation = 0;
-    
-    //Handle our state
-    if rotationGesture.state == .Began && self.pinchPresent == false {
-      self.pinchPresent = true
-      self.checkIfBothGesturesPresent()
-    } else if rotationGesture.state == .Ended {
-      self.pinchPresent = false
-      self.stopTimerIfNeeded()
-    }
+
+    gestureReactor.handleRotate(rotationGesture)
   }
-  
-  func checkIfBothGesturesPresent() {
-    if self.pinchPresent == true && self.panPresent == true && self.gestureTimer == nil {
-      self.secondsLeft = 3
-      self.gestureTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "tick:", userInfo: nil, repeats: true)
-      self.setStatus("Started")
-    }
-  }
-  
-  func stopTimerIfNeeded() {
-    if let gestureTimer = gestureTimer {
-      gestureTimer.invalidate()
-      self.gestureTimer = nil
-      self.setStatus("Completed")
-    }
-  }
-  
-  func tick(timer: NSTimer) {
-    if self.secondsLeft <= 0 {
-      self.stopTimerIfNeeded()
-      return
-    }
-    self.secondsLeft--
-    self.setStatus("Tick: \(self.secondsLeft)")
-  }
-  
+
   func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
   
+  func didStart() {
+    self.setStatus("Started")
+  }
+  
+  func didTick(count: Int) {
+    self.setStatus("Tick: \(count)")
+  }
+  
+  func didComplete() {
+    self.setStatus("Completed")
+  }
+
 }
 
 protocol SetStatus {

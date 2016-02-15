@@ -24,6 +24,7 @@
 		1FE3E4371C6CF6B800804CA2 /* ReactiveTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E4361C6CF6B800804CA2 /* ReactiveTimer.swift */; };
 		1FE3E4391C6DC6CC00804CA2 /* GestureReactorTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E4381C6DC6CB00804CA2 /* GestureReactorTestHelper.swift */; };
 		1FE3E43B1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E43A1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift */; };
+		1BF29EDA1C69E72D00912AD3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */; };
 		B48DEEE7DD9FCD9E8F77A13B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3577BA56804CC07EC782AF /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		1FE3E4361C6CF6B800804CA2 /* ReactiveTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveTimer.swift; sourceTree = "<group>"; };
 		1FE3E4381C6DC6CB00804CA2 /* GestureReactorTestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureReactorTestHelper.swift; sourceTree = "<group>"; };
 		1FE3E43A1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveGestureReactorTests.swift; sourceTree = "<group>"; };
+		1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		350C6FD680F3FD2ADAEA261D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA3577BA56804CC07EC782AF /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				0C9FFB341C46625F00FD6C05 /* ReactiveViewController.swift */,
 				0CDDAB471C56C21C00D5DA3D /* ReactiveShortViewController.swift */,
 				0C153D601C4F001300CBD947 /* Observable+Extension.swift */,
+				1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */,
 				0C18B46B1C4454580081DFC5 /* Main.storyboard */,
 				0C18B46E1C4454580081DFC5 /* Assets.xcassets */,
 				0C18B4701C4454580081DFC5 /* LaunchScreen.storyboard */,
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FE3E4371C6CF6B800804CA2 /* ReactiveTimer.swift in Sources */,
+				1BF29EDA1C69E72D00912AD3 /* UIView+Extensions.swift in Sources */,
 				0C18B46A1C4454580081DFC5 /* ImperativeViewController.swift in Sources */,
 				1FD5DC471C69D7EE0050B3D9 /* ReactiveGestureReactor.swift in Sources */,
 				0C18B4681C4454580081DFC5 /* AppDelegate.swift in Sources */,

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 
-@objc class ImperativeGestureReactor: NSObject, GestureReactor {
+class ImperativeGestureReactor: GestureReactor {
 	
 	var delegate: GestureReactorDelegate?
 	
@@ -16,7 +16,6 @@ import UIKit
 
 	init(timerCreator: TimerCreator) {
 		self.timerCreator = timerCreator
-		super.init()
 	}
 	
 	func handlePan(panGesture: UIPanGestureRecognizerType) {

@@ -22,13 +22,11 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, G
 		gestureReactor.delegate = self
 	}
 	
-	// cannot be private due to use of target-action
-	func handlePan(panGesture: UIPanGestureRecognizer) {
+	@objc private func handlePan(panGesture: UIPanGestureRecognizer) {
 		gestureReactor.handlePan(panGesture)
 	}
 	
-	// cannot be private due to use of target-action
-	func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
+	@objc private func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
 		gestureReactor.handlePinch(pinchGesture)
 	}
 	

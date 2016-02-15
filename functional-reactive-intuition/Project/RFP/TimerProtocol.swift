@@ -11,19 +11,17 @@ protocol TimerType {
 	
 }
 
-@objc class Timer: NSObject, TimerType {
+class Timer: TimerType {
 	
 	private var timer: NSTimer?
 	private let onTick: TimerTicker
 		
 	init(interval: NSTimeInterval, repeats: Bool, onTick: TimerTicker) {
 		self.onTick = onTick
-		super.init()
 		timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "tick", userInfo: nil, repeats: repeats)
 	}
 	
-	// cannot be private due to use of target-action
-	func tick() {
+	@objc private func tick() {
 		onTick(sender: self)
 	}
 	

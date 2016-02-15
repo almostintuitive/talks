@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 
 
-@objc class ReactiveGestureReactor: NSObject, GestureReactor {
+class ReactiveGestureReactor: GestureReactor {
 
 	var delegate: GestureReactorDelegate?
 	
@@ -17,9 +17,7 @@ import RxCocoa
 		self.timerCreator = timerCreator
 		panVariable = Variable(nil)
 		pinchVariable = Variable(nil)
-		
-		super.init()
-		
+				
 		// condition: when pan has begun
 		let panStarted = panVariable.asObservable().filter { gesture in gesture?.state == .Began }
 		// condition: when pan has ended

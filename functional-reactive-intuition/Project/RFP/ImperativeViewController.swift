@@ -59,8 +59,8 @@ class ImperativeViewController: UIViewController, UIGestureRecognizerDelegate, S
     self.setStatus("Started")
   }
   
-  func didTick(count: Int) {
-    self.setStatus("Tick: \(count)")
+  func didTick(secondsLeft: Int) {
+    self.setStatus("Tick: \(secondsLeft)")
   }
   
   func didComplete() {

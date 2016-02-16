@@ -9,6 +9,7 @@ class ReactiveGestureReactor: GestureReactor {
 	var delegate: GestureReactorDelegate?
 	
 	private var timerCreator: ReactiveTimerCreator
+	private let disposeBag = DisposeBag()
 	
 	private var panVariable: Variable<UIGestureRecognizerType?>
 	private var rotateVariable: Variable<UIGestureRecognizerType?>
@@ -29,7 +30,7 @@ class ReactiveGestureReactor: GestureReactor {
 		let rotateEnded = rotateVariable.asObservable().filter { gesture in gesture?.state == .Ended }
 		
 		// condition: when both pan and rotate has begun
-		let bothGesturesStarted = Observable.combineLatest(panStarted, rotateStarted) { (_, _) -> Bool in return true }
+		let bothGesturesStarted = Observable.zip(panStarted, rotateStarted) { (_, _) -> Bool in return true }
 		
 		// condition: when both pan and rotate ended
 		let bothGesturesEnded = Observable.of(panEnded, rotateEnded).merge()

@@ -19,23 +19,44 @@ class ReactiveGestureReactor: GestureReactor {
 		panVariable = Variable(nil)
 		rotateVariable = Variable(nil)
 				
-		// condition: when pan has begun
-		let panStarted = panVariable.asObservable().filter { gesture in gesture?.state == .Began }
-		// condition: when pan has ended
-		let panEnded = panVariable.asObservable().filter { gesture in gesture?.state == .Ended }
-		
-		// condition: when rotate has begun
-		let rotateStarted = rotateVariable.asObservable().filter { gesture in gesture?.state == .Began }
-		// condition: when rotate has ended
-		let rotateEnded = rotateVariable.asObservable().filter { gesture in gesture?.state == .Ended }
-		
-		// condition: when both pan and rotate has begun
-		let bothGesturesStarted = Observable.zip(panStarted, rotateStarted) { (_, _) -> Bool in return true }
-		
-		// condition: when both pan and rotate ended
-		let bothGesturesEnded = Observable.of(panEnded, rotateEnded).merge()
-		
-		
+        
+        // FYI 
+        // Passing on the UIGesture at this point is dodgy as it's a reference 
+        // It's state will change and render our filter useless. 
+        // We therefore keep just the state in our observable buffers [.Began,.Began,.Ended]
+        let rotateGuesturesStartedEnded = rotateVariable.asObservable().filter { gesture in gesture?.state == .Began || gesture?.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
+            return Observable.just(gesture!.state)
+        }
+        
+        let panGuesturesStartedEnded = panVariable.asObservable().filter { gesture in gesture?.state == .Began || gesture?.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
+            return Observable.just(gesture!.state)
+        }
+        
+        // Combine our latest .Began and .Ended from both Pan and Rotate.
+        // If they are the same then return the same state. If not then return a Failed.
+        let combineStartEndGuestures = Observable.combineLatest(panGuesturesStartedEnded, rotateGuesturesStartedEnded) { (panState, rotateState) -> Observable<UIGestureRecognizerState> in
+            
+            var state = UIGestureRecognizerState.Failed //a bit of misuse ;)
+            
+            // We have a match on either .Began or .Failed.
+            if panState == rotateState {
+                state = panState //Just assign state of pan as it'll be the same as rotate. .Began or .Ended
+            }
+            
+            return Observable.just(state)
+        }
+
+        
+        // condition: when both pan and rotate has begun
+        let bothGesturesStarted = combineStartEndGuestures.switchLatest().filter { (state) -> Bool in
+            state == .Began
+        }
+        
+        // condition: when both pan and rotate has Ended
+        let bothGesturesEnded = combineStartEndGuestures.switchLatest().filter { (state) -> Bool in
+            state == .Ended
+        }
+        
 		// when bothGesturesStarted, do this:
 		bothGesturesStarted.subscribeNext { [unowned self] _ in
 			
@@ -54,7 +75,8 @@ class ReactiveGestureReactor: GestureReactor {
 					// when the timer completes, do this:
 					self.delegate?.didComplete()
 			})
-		}
+		}.addDisposableTo(self.disposeBag)
+
 	}
 
 	func handlePan(panGesture: UIPanGestureRecognizerType) {

@@ -10,31 +10,28 @@ import UIKit
 import RxSwift
 
 extension UIView {
-    /**
-     Bindable sink for `rotate` property.
-     */
-    public var rx_rotate: AnyObserver<CGFloat> {
-        return AnyObserver { [weak self] event in
-            MainScheduler.ensureExecutingOnScheduler()
-            
-            switch event {
-            case .Next(let value):
-                self?.transform = CGAffineTransformRotate(CGAffineTransformIdentity, value)
-            case .Error( _):
-                break
-            case .Completed:
-                break
-            }
-        }
+  /**
+   Bindable sink for `rotate` property.
+   */
+  public var rx_rotate: AnyObserver<CGFloat> {
+    return AnyObserver { [weak self] event in
+      MainScheduler.ensureExecutingOnScheduler()
+      
+      switch event {
+      case .Next(let value):
+        self?.transform = CGAffineTransformRotate(CGAffineTransformIdentity, value)
+      case .Error, .Completed: ()
+      }
     }
+  }
 }
 
 infix operator - { associativity right precedence 90 }
 func - (left: CGPoint, right: CGPoint) -> CGPoint {
-    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+  return CGPoint(x: left.x - right.x, y: left.y - right.y)
 }
 
 infix operator + { associativity right precedence 90 }
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
-    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+  return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }

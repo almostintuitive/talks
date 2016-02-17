@@ -13,9 +13,17 @@
 		0C18B46D1C4454580081DFC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C18B46B1C4454580081DFC5 /* Main.storyboard */; };
 		0C18B46F1C4454580081DFC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C18B46E1C4454580081DFC5 /* Assets.xcassets */; };
 		0C18B4721C4454580081DFC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C18B4701C4454580081DFC5 /* LaunchScreen.storyboard */; };
-		0C18B47D1C4454580081DFC5 /* RFPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18B47C1C4454580081DFC5 /* RFPTests.swift */; };
+		0C18B47D1C4454580081DFC5 /* ImperativeGestureReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C18B47C1C4454580081DFC5 /* ImperativeGestureReactorTests.swift */; };
 		0C9FFB351C46625F00FD6C05 /* ReactiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9FFB341C46625F00FD6C05 /* ReactiveViewController.swift */; };
 		0CDDAB481C56C21C00D5DA3D /* ReactiveShortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDAB471C56C21C00D5DA3D /* ReactiveShortViewController.swift */; };
+		1FB180CC1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB180CB1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift */; };
+		1FD5DC431C69D4B60050B3D9 /* ImperativeGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */; };
+		1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */; };
+		1FD5DC471C69D7EE0050B3D9 /* ReactiveGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC461C69D7EE0050B3D9 /* ReactiveGestureReactor.swift */; };
+		1FE3E4351C6C782F00804CA2 /* TimerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E4341C6C782F00804CA2 /* TimerProtocol.swift */; };
+		1FE3E4371C6CF6B800804CA2 /* ReactiveTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E4361C6CF6B800804CA2 /* ReactiveTimer.swift */; };
+		1FE3E4391C6DC6CC00804CA2 /* GestureReactorTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E4381C6DC6CB00804CA2 /* GestureReactorTestHelper.swift */; };
+		1FE3E43B1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE3E43A1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift */; };
 		1BF29EDA1C69E72D00912AD3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */; };
 		B48DEEE7DD9FCD9E8F77A13B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3577BA56804CC07EC782AF /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -40,11 +48,19 @@
 		0C18B4711C4454580081DFC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C18B4731C4454580081DFC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C18B4781C4454580081DFC5 /* RFPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RFPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C18B47C1C4454580081DFC5 /* RFPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFPTests.swift; sourceTree = "<group>"; };
+		0C18B47C1C4454580081DFC5 /* ImperativeGestureReactorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImperativeGestureReactorTests.swift; sourceTree = "<group>"; };
 		0C18B47E1C4454580081DFC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C9FFB341C46625F00FD6C05 /* ReactiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveViewController.swift; sourceTree = "<group>"; };
 		0CDDAB471C56C21C00D5DA3D /* ReactiveShortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveShortViewController.swift; sourceTree = "<group>"; };
 		1AFF0EC5CED5C7CDACEDF353 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1FB180CB1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGestureRecognizerProtocol.swift; sourceTree = "<group>"; };
+		1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImperativeGestureReactor.swift; sourceTree = "<group>"; };
+		1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureReactor.swift; sourceTree = "<group>"; };
+		1FD5DC461C69D7EE0050B3D9 /* ReactiveGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveGestureReactor.swift; sourceTree = "<group>"; };
+		1FE3E4341C6C782F00804CA2 /* TimerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerProtocol.swift; sourceTree = "<group>"; };
+		1FE3E4361C6CF6B800804CA2 /* ReactiveTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveTimer.swift; sourceTree = "<group>"; };
+		1FE3E4381C6DC6CB00804CA2 /* GestureReactorTestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureReactorTestHelper.swift; sourceTree = "<group>"; };
+		1FE3E43A1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveGestureReactorTests.swift; sourceTree = "<group>"; };
 		1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		350C6FD680F3FD2ADAEA261D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA3577BA56804CC07EC782AF /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +118,12 @@
 				0C18B46E1C4454580081DFC5 /* Assets.xcassets */,
 				0C18B4701C4454580081DFC5 /* LaunchScreen.storyboard */,
 				0C18B4731C4454580081DFC5 /* Info.plist */,
+				1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */,
+				1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */,
+				1FD5DC461C69D7EE0050B3D9 /* ReactiveGestureReactor.swift */,
+				1FB180CB1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift */,
+				1FE3E4341C6C782F00804CA2 /* TimerProtocol.swift */,
+				1FE3E4361C6CF6B800804CA2 /* ReactiveTimer.swift */,
 			);
 			path = RFP;
 			sourceTree = "<group>";
@@ -109,8 +131,10 @@
 		0C18B47B1C4454580081DFC5 /* RFPTests */ = {
 			isa = PBXGroup;
 			children = (
-				0C18B47C1C4454580081DFC5 /* RFPTests.swift */,
+				0C18B47C1C4454580081DFC5 /* ImperativeGestureReactorTests.swift */,
 				0C18B47E1C4454580081DFC5 /* Info.plist */,
+				1FE3E4381C6DC6CB00804CA2 /* GestureReactorTestHelper.swift */,
+				1FE3E43A1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift */,
 			);
 			path = RFPTests;
 			sourceTree = "<group>";
@@ -284,12 +308,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE3E4371C6CF6B800804CA2 /* ReactiveTimer.swift in Sources */,
 				1BF29EDA1C69E72D00912AD3 /* UIView+Extensions.swift in Sources */,
 				0C18B46A1C4454580081DFC5 /* ImperativeViewController.swift in Sources */,
+				1FD5DC471C69D7EE0050B3D9 /* ReactiveGestureReactor.swift in Sources */,
 				0C18B4681C4454580081DFC5 /* AppDelegate.swift in Sources */,
+				1FD5DC431C69D4B60050B3D9 /* ImperativeGestureReactor.swift in Sources */,
 				0C153D611C4F001300CBD947 /* Observable+Extension.swift in Sources */,
 				0CDDAB481C56C21C00D5DA3D /* ReactiveShortViewController.swift in Sources */,
+				1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */,
+				1FE3E4351C6C782F00804CA2 /* TimerProtocol.swift in Sources */,
 				0C9FFB351C46625F00FD6C05 /* ReactiveViewController.swift in Sources */,
+				1FB180CC1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +327,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C18B47D1C4454580081DFC5 /* RFPTests.swift in Sources */,
+				1FE3E4391C6DC6CC00804CA2 /* GestureReactorTestHelper.swift in Sources */,
+				1FE3E43B1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift in Sources */,
+				0C18B47D1C4454580081DFC5 /* ImperativeGestureReactorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -69,7 +69,7 @@ class ReactiveGestureReactor: GestureReactor {
 			
 			timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
 				// when a tick happens, do this:
-				self.delegate?.didTick(count)
+				self.delegate?.didTick(3 - count)
 				}, onCompleted: { [unowned self] in
 					// when the timer completes, do this:
 					self.delegate?.didComplete()

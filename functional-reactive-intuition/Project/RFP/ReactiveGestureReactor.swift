@@ -35,12 +35,11 @@ class ReactiveGestureReactor: GestureReactor {
         // Combine our latest .Began and .Ended from both Pan and Rotate.
         // If they are the same then return the same state. If not then return a Failed.
         let combineStartEndGestures = Observable.combineLatest(panGesturesStartedEnded, rotateGesturesStartedEnded) { (panState, rotateState) -> Observable<UIGestureRecognizerState> in
-            
-            var state = UIGestureRecognizerState.Failed //a bit of misuse ;)
-            
-            // We have a match on either .Began or .Failed.
-            if panState == rotateState {
-                state = panState //Just assign state of pan as it'll be the same as rotate. .Began or .Ended
+			
+			// If only one is .Ended, the result is .Ended too
+            var state = UIGestureRecognizerState.Ended
+            if panState == .Began && rotateState == .Began {
+                state = .Began
             }
             
             return Observable.just(state)

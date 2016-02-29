@@ -43,16 +43,19 @@ class ReactiveGestureReactor: GestureReactor {
             }
             
             return Observable.just(state)
-        }
+        }.switchLatest()
+		
+		// several .Began events in a row are to be treated the same as a single one, it has just meaning if a .Ended is in between
+		let distinceCombineStartEndGestures = combineStartEndGestures.distinctUntilChanged()
 
         
         // condition: when both pan and rotate has begun
-        let bothGesturesStarted = combineStartEndGestures.switchLatest().filter { (state) -> Bool in
+        let bothGesturesStarted = distinceCombineStartEndGestures.filter { (state) -> Bool in
             state == .Began
         }
         
         // condition: when both pan and rotate has Ended
-        let bothGesturesEnded = combineStartEndGestures.switchLatest().filter { (state) -> Bool in
+        let bothGesturesEnded = distinceCombineStartEndGestures.filter { (state) -> Bool in
             state == .Ended
         }
         

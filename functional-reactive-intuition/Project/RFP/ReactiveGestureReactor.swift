@@ -63,11 +63,16 @@ class ReactiveGestureReactor: GestureReactor {
 			// create a timer that ticks every second
 			let timer = self.timerCreator(interval: 1)
 			// condition: but only three ticks
-			let timerThatTicksThree = timer.take(3)
+			let timerThatTicksThree = timer.take(4)
 			// condition: and also, stop it immediately when both pan and rotate ended
 			let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(bothGesturesEnded)
 			
 			timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
+				// the imperative version waits for a second until didComplete is called, so we have to tick once more, but do not send the last tick to the delegate
+				guard count < 4 else {
+					return
+					//do nothing
+				}
 				// when a tick happens, do this:
 				self.delegate?.didTick(3 - count)
 				}, onCompleted: { [unowned self] in

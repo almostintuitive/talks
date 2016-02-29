@@ -24,17 +24,17 @@ class ReactiveGestureReactor: GestureReactor {
         // Passing on the UIGesture at this point is dodgy as it's a reference 
         // It's state will change and render our filter useless. 
         // We therefore keep just the state in our observable buffers [.Began,.Began,.Ended]
-        let rotateGuesturesStartedEnded = rotateVariable.asObservable().filter { gesture in gesture?.state == .Began || gesture?.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
+        let rotateGesturesStartedEnded = rotateVariable.asObservable().filter { gesture in gesture?.state == .Began || gesture?.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
             return Observable.just(gesture!.state)
         }
         
-        let panGuesturesStartedEnded = panVariable.asObservable().filter { gesture in gesture?.state == .Began || gesture?.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
+        let panGesturesStartedEnded = panVariable.asObservable().filter { gesture in gesture?.state == .Began || gesture?.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
             return Observable.just(gesture!.state)
         }
         
         // Combine our latest .Began and .Ended from both Pan and Rotate.
         // If they are the same then return the same state. If not then return a Failed.
-        let combineStartEndGuestures = Observable.combineLatest(panGuesturesStartedEnded, rotateGuesturesStartedEnded) { (panState, rotateState) -> Observable<UIGestureRecognizerState> in
+        let combineStartEndGestures = Observable.combineLatest(panGesturesStartedEnded, rotateGesturesStartedEnded) { (panState, rotateState) -> Observable<UIGestureRecognizerState> in
             
             var state = UIGestureRecognizerState.Failed //a bit of misuse ;)
             
@@ -48,12 +48,12 @@ class ReactiveGestureReactor: GestureReactor {
 
         
         // condition: when both pan and rotate has begun
-        let bothGesturesStarted = combineStartEndGuestures.switchLatest().filter { (state) -> Bool in
+        let bothGesturesStarted = combineStartEndGestures.switchLatest().filter { (state) -> Bool in
             state == .Began
         }
         
         // condition: when both pan and rotate has Ended
-        let bothGesturesEnded = combineStartEndGuestures.switchLatest().filter { (state) -> Bool in
+        let bothGesturesEnded = combineStartEndGestures.switchLatest().filter { (state) -> Bool in
             state == .Ended
         }
         

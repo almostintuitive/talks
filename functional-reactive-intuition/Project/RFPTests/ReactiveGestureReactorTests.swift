@@ -17,7 +17,7 @@ class ReactiveGestureReactorTests: XCTestCase {
 			self.mockTimerCreatorCalled += 1
 			let mockTimer = MockReactiveTimer(interval: interval)
 			self.mockTimer = mockTimer
-			return mockTimer.asObservable()
+			return mockTimer.asObservable().skip(1)
 		}
 		sut = ReactiveGestureReactor(timerCreator: timerCreator)
 		mockDelegate = MockGestureReactorDelegate()

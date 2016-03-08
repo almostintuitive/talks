@@ -42,16 +42,16 @@ class IntegratedReactiveGestureReactor {
             }.switchLatest()
         
         // several .Began events in a row are to be treated the same as a single one, it has just meaning if a .Ended is in between
-        let distinceCombineStartEndGestures = combineStartEndGestures.distinctUntilChanged()
+        let distinctCombineStartEndGestures = combineStartEndGestures.distinctUntilChanged()
         
         
         // condition: when both pan and rotate has begun
-        let bothGesturesStarted = distinceCombineStartEndGestures.filter { (state) -> Bool in
+        let bothGesturesStarted = distinctCombineStartEndGestures.filter { (state) -> Bool in
             state == .Began
         }
         
-        // condition: when both pan and rotate has Ended
-        let bothGesturesEnded = distinceCombineStartEndGestures.filter { (state) -> Bool in
+        // condition: when one of pan or rotate has Ended
+        let eitherGesturesEnded = distinctCombineStartEndGestures.filter { (state) -> Bool in
             state == .Ended
         }
         
@@ -63,8 +63,8 @@ class IntegratedReactiveGestureReactor {
             let timer = self.timerCreator(interval: 1)
             // condition: but only three ticks
             let timerThatTicksThree = timer.take(4)
-            // condition: and also, stop it immediately when both pan and rotate ended
-            let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(bothGesturesEnded)
+            // condition: and also, stop it immediately either pan or rotate ended
+            let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(eitherGesturesEnded)
             
             timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
                 // the imperative version waits for a second until didComplete is called, so we have to tick once more, but do not send the last tick to the delegate

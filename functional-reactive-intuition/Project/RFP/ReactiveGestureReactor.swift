@@ -8,11 +8,11 @@ class ReactiveGestureReactor: GestureReactor {
 
 	var delegate: GestureReactorDelegate?
 	
-	private var timerCreator: ReactiveTimerCreator
+	private let timerCreator: ReactiveTimerCreator
 	private let disposeBag = DisposeBag()
 	
-	private var panVariable: Variable<UIGestureRecognizerType?>
-	private var rotateVariable: Variable<UIGestureRecognizerType?>
+	private let panVariable: Variable<UIGestureRecognizerType?>
+	private let rotateVariable: Variable<UIGestureRecognizerType?>
 	
 	init(timerCreator: ReactiveTimerCreator) {
 		self.timerCreator = timerCreator

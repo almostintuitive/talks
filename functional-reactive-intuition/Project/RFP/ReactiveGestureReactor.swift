@@ -72,12 +72,12 @@ class ReactiveGestureReactor: GestureReactor {
 			
 			timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
 				// the imperative version waits for a second until didComplete is called, so we have to tick once more, but do not send the last tick to the delegate
-				guard count < 4 else {
+				guard count <= 2 else {
 					return
 					//do nothing
 				}
 				// when a tick happens, do this:
-				self.delegate?.didTick(3 - count)
+				self.delegate?.didTick(2 - count)
 				}, onCompleted: { [unowned self] in
 					// when the timer completes, do this:
 					self.delegate?.didComplete()

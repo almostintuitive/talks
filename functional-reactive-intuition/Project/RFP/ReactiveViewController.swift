@@ -40,7 +40,9 @@ class ReactiveViewController: UIViewController, SetStatus, GestureReactorDelegat
     ///
     /// Uses custom infix on CGPoint to '-' or '+' two together.
     
-    let panLocation = pan.rx_event.map { [unowned self] in $0.locationInView(self.view) - self.view.center }
+    let panLocation = pan.rx_event.map { [unowned self] in
+        $0.locationInView(self.view) - self.view.center
+    }
     panLocation.map { $0.x }
       .bindTo(self.centerXConstraint.rx_constant)
       .addDisposableTo(self.disposeBag)

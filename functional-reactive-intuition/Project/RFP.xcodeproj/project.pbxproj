@@ -19,6 +19,7 @@
 		1BF29EDA1C69E72D00912AD3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */; };
 		1F5B23AC1C8EBA7B00F28DE1 /* IntegratedReactiveGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B23AB1C8EBA7B00F28DE1 /* IntegratedReactiveGestureReactor.swift */; };
 		1F5B23AE1C8EBCAD00F28DE1 /* IntegratedReactiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B23AD1C8EBCAD00F28DE1 /* IntegratedReactiveViewController.swift */; };
+		1F5B23B01C8EC62100F28DE1 /* IntegratedReactiveGestureReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B23AF1C8EC62100F28DE1 /* IntegratedReactiveGestureReactorTests.swift */; };
 		1FB180CC1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB180CB1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift */; };
 		1FD5DC431C69D4B60050B3D9 /* ImperativeGestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */; };
 		1FD5DC451C69D60C0050B3D9 /* GestureReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */; };
@@ -58,6 +59,7 @@
 		1BF29ED91C69E72D00912AD3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		1F5B23AB1C8EBA7B00F28DE1 /* IntegratedReactiveGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegratedReactiveGestureReactor.swift; sourceTree = "<group>"; };
 		1F5B23AD1C8EBCAD00F28DE1 /* IntegratedReactiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegratedReactiveViewController.swift; sourceTree = "<group>"; };
+		1F5B23AF1C8EC62100F28DE1 /* IntegratedReactiveGestureReactorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegratedReactiveGestureReactorTests.swift; sourceTree = "<group>"; };
 		1FB180CB1C6C72EF008BC2D1 /* UIGestureRecognizerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGestureRecognizerProtocol.swift; sourceTree = "<group>"; };
 		1FD5DC421C69D4B60050B3D9 /* ImperativeGestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImperativeGestureReactor.swift; sourceTree = "<group>"; };
 		1FD5DC441C69D60C0050B3D9 /* GestureReactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureReactor.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				0C18B47E1C4454580081DFC5 /* Info.plist */,
 				1FE3E4381C6DC6CB00804CA2 /* GestureReactorTestHelper.swift */,
 				1FE3E43A1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift */,
+				1F5B23AF1C8EC62100F28DE1 /* IntegratedReactiveGestureReactorTests.swift */,
 			);
 			path = RFPTests;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			files = (
 				1FE3E4391C6DC6CC00804CA2 /* GestureReactorTestHelper.swift in Sources */,
 				1FE3E43B1C6E40A200804CA2 /* ReactiveGestureReactorTests.swift in Sources */,
+				1F5B23B01C8EC62100F28DE1 /* IntegratedReactiveGestureReactorTests.swift in Sources */,
 				0C18B47D1C4454580081DFC5 /* ImperativeGestureReactorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

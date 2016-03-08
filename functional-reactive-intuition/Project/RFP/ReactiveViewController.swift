@@ -17,21 +17,22 @@ class ReactiveViewController: UIViewController, SetStatus, GestureReactorDelegat
   @IBOutlet weak var centerXConstraint: NSLayoutConstraint! //For updating the position of the box when dragging
   @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
   
-  private var gestureReactor: GestureReactor = ReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) })
+  private var gestureReactor: GestureReactor!
   
   private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    gestureReactor.delegate = self
-
     let pan = UIPanGestureRecognizer(target: self, action: "handlePan:")
     pan.delegate = self
     let rotate = UIRotationGestureRecognizer(target: self, action: "handleRotate:")
     rotate.delegate = self
-    self.draggableView.gestureRecognizers = [pan, rotate]
+    draggableView.gestureRecognizers = [pan, rotate]
     
+    gestureReactor = ReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) }, gestureRecognizers: (pan, rotate))
+    gestureReactor.delegate = self
+
     
     ///
     ///

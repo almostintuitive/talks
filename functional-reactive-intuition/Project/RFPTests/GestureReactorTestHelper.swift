@@ -54,7 +54,8 @@ class MockReactiveTimer: Variable<Int> {
 	var invalidateCalled = 0
 
 	init(interval: NSTimeInterval) {
-		super.init(0)
+        // needs to be -1 in order for first tick being 0
+		super.init(-1)
 	}
 	
 	func mockExecuteOnTick() {

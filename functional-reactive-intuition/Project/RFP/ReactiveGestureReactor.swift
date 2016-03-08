@@ -35,25 +35,27 @@ class ReactiveGestureReactor: GestureReactor {
         // Combine our latest .Began and .Ended from both Pan and Rotate.
         // If they are the same then return the same state. If not then return a Failed.
         let combineStartEndGestures = Observable.combineLatest(panGesturesStartedEnded, rotateGesturesStartedEnded) { (panState, rotateState) -> Observable<UIGestureRecognizerState> in
-            
-            var state = UIGestureRecognizerState.Failed //a bit of misuse ;)
-            
-            // We have a match on either .Began or .Failed.
-            if panState == rotateState {
-                state = panState //Just assign state of pan as it'll be the same as rotate. .Began or .Ended
+			
+			// If only one is .Ended, the result is .Ended too
+            var state = UIGestureRecognizerState.Ended
+            if panState == .Began && rotateState == .Began {
+                state = .Began
             }
             
             return Observable.just(state)
-        }
+        }.switchLatest()
+		
+		// several .Began events in a row are to be treated the same as a single one, it has just meaning if a .Ended is in between
+		let distinceCombineStartEndGestures = combineStartEndGestures.distinctUntilChanged()
 
         
         // condition: when both pan and rotate has begun
-        let bothGesturesStarted = combineStartEndGestures.switchLatest().filter { (state) -> Bool in
+        let bothGesturesStarted = distinceCombineStartEndGestures.filter { (state) -> Bool in
             state == .Began
         }
         
         // condition: when both pan and rotate has Ended
-        let bothGesturesEnded = combineStartEndGestures.switchLatest().filter { (state) -> Bool in
+        let bothGesturesEnded = distinceCombineStartEndGestures.filter { (state) -> Bool in
             state == .Ended
         }
         
@@ -64,13 +66,18 @@ class ReactiveGestureReactor: GestureReactor {
 			// create a timer that ticks every second
 			let timer = self.timerCreator(interval: 1)
 			// condition: but only three ticks
-			let timerThatTicksThree = timer.take(3)
+			let timerThatTicksThree = timer.take(4)
 			// condition: and also, stop it immediately when both pan and rotate ended
 			let timerThatTicksThreeAndStops = timerThatTicksThree.takeUntil(bothGesturesEnded)
 			
 			timerThatTicksThreeAndStops.subscribe(onNext: { [unowned self] count in
+				// the imperative version waits for a second until didComplete is called, so we have to tick once more, but do not send the last tick to the delegate
+				guard count < 4 else {
+					return
+					//do nothing
+				}
 				// when a tick happens, do this:
-				self.delegate?.didTick(count)
+				self.delegate?.didTick(3 - count)
 				}, onCompleted: { [unowned self] in
 					// when the timer completes, do this:
 					self.delegate?.didComplete()

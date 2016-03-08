@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Ys-mE-ORP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Ys-mE-ORP">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -15,12 +15,66 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="gAg-0y-ace"/>
+                        <segue destination="v1I-Zd-0Ub" kind="relationship" relationship="rootViewController" id="I4n-Qe-nJR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ORS-Oc-gzt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="201" y="667"/>
+        </scene>
+        <!--Functional Reactive Intuition-->
+        <scene sceneID="lqF-nv-PMs">
+            <objects>
+                <viewController id="v1I-Zd-0Ub" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zaz-nJ-Sbk"/>
+                        <viewControllerLayoutGuide type="bottom" id="ems-hk-tA6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6EY-3A-tTr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wY6-Ms-Wj1">
+                                <rect key="frame" x="244" y="242" width="112" height="117"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-By-P6P">
+                                        <rect key="frame" x="20" y="20" width="72" height="30"/>
+                                        <state key="normal" title="Imperative"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="tfa-Zg-E5r"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k09-2w-0kP">
+                                        <rect key="frame" x="27" y="67" width="59" height="30"/>
+                                        <state key="normal" title="Reactive"/>
+                                        <connections>
+                                            <segue destination="xWA-SZ-kuP" kind="show" id="pAu-ma-beq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="k09-2w-0kP" firstAttribute="leading" secondItem="wY6-Ms-Wj1" secondAttribute="leading" priority="999" constant="27" id="SwJ-Tk-1O5"/>
+                                    <constraint firstAttribute="trailing" secondItem="k09-2w-0kP" secondAttribute="trailing" priority="999" constant="26" id="VUv-Gf-neX"/>
+                                    <constraint firstAttribute="bottom" secondItem="k09-2w-0kP" secondAttribute="bottom" constant="20" id="WhS-Xi-IWW"/>
+                                    <constraint firstItem="gSj-By-P6P" firstAttribute="leading" secondItem="wY6-Ms-Wj1" secondAttribute="leading" priority="999" constant="20" id="hUf-B4-G00"/>
+                                    <constraint firstItem="gSj-By-P6P" firstAttribute="top" secondItem="wY6-Ms-Wj1" secondAttribute="top" constant="20" id="mWV-JM-nZU"/>
+                                    <constraint firstItem="k09-2w-0kP" firstAttribute="top" secondItem="gSj-By-P6P" secondAttribute="bottom" constant="17" id="pB6-dh-A3r"/>
+                                    <constraint firstAttribute="trailing" secondItem="gSj-By-P6P" secondAttribute="trailing" priority="999" constant="20" id="rx6-gD-OlI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wY6-Ms-Wj1" firstAttribute="centerY" secondItem="6EY-3A-tTr" secondAttribute="centerY" id="DN4-by-Yv7"/>
+                            <constraint firstItem="wY6-Ms-Wj1" firstAttribute="centerX" secondItem="6EY-3A-tTr" secondAttribute="centerX" id="pfs-H4-bhg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Functional Reactive Intuition" id="aJz-i0-2eL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2cU-sZ-Sbm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="667"/>
         </scene>
         <!--Standard-->
         <scene sceneID="tne-QT-ifu">
@@ -61,13 +115,7 @@
                             <constraint firstItem="tXH-Xd-ZIe" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="vmw-vw-22N"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Standard" id="JP3-Ft-btN">
-                        <barButtonItem key="rightBarButtonItem" title="Reactive" id="F0c-Vx-jEb">
-                            <connections>
-                                <segue destination="xWA-SZ-kuP" kind="show" id="msa-Xp-6dD"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Standard" id="JP3-Ft-btN"/>
                     <connections>
                         <outlet property="centerXConstraint" destination="EiW-FR-Ikm" id="d51-Zs-rLF"/>
                         <outlet property="centerYConstraint" destination="Ie7-Q4-F8q" id="kJD-pM-tXS"/>
@@ -77,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="929" y="667"/>
+            <point key="canvasLocation" x="1642" y="112"/>
         </scene>
         <!--Reactive-->
         <scene sceneID="rHg-We-XWI">
@@ -128,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DH0-9t-vhy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1642" y="667"/>
+            <point key="canvasLocation" x="1642" y="900"/>
         </scene>
     </scenes>
 </document>

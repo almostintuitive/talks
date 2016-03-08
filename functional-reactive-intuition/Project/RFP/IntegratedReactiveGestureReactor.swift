@@ -12,7 +12,7 @@ class IntegratedReactiveGestureReactor {
     private let timerCreator: ReactiveTimerCreator
     private let disposeBag = DisposeBag()
 
-    init(timerCreator: ReactiveTimerCreator, panGestureEvent: ControlEvent<UIGestureRecognizer>, rotateGestureEvent: ControlEvent<UIGestureRecognizer>) {
+    init(timerCreator: ReactiveTimerCreator, panGestureObservable: Observable<UIGestureRecognizerType>, rotateGestureObservable: Observable<UIGestureRecognizerType>) {
         
         self.timerCreator = timerCreator
         
@@ -20,11 +20,11 @@ class IntegratedReactiveGestureReactor {
         // Passing on the UIGesture at this point is dodgy as it's a reference
         // It's state will change and render our filter useless.
         // We therefore keep just the state in our observable buffers [.Began,.Began,.Ended]
-        let rotateGesturesStartedEnded = rotateGestureEvent.filter { gesture in gesture.state == .Began || gesture.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
+        let rotateGesturesStartedEnded = rotateGestureObservable.filter { gesture in gesture.state == .Began || gesture.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
             return Observable.just(gesture.state)
         }
         
-        let panGesturesStartedEnded = panGestureEvent.filter { gesture in gesture.state == .Began || gesture.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
+        let panGesturesStartedEnded = panGestureObservable.filter { gesture in gesture.state == .Began || gesture.state == .Ended}.flatMap { (gesture) -> Observable<UIGestureRecognizerState> in
             return Observable.just(gesture.state)
         }
         

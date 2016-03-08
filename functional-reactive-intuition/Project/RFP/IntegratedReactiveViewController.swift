@@ -26,15 +26,34 @@ class IntegratedReactiveViewController: UIViewController, SetStatus, GestureReac
     required init?(coder aDecoder: NSCoder) {
         pan = UIPanGestureRecognizer()
         rotate = UIRotationGestureRecognizer()
-        gestureReactor = IntegratedReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) }, panGestureEvent: pan.rx_event, rotateGestureEvent: rotate.rx_event)
+        
+        // workaround to convert ControlEvent<UIGestureRecognizer> to Observable<UIGestureRecognizerType>
+        let panObservable: Observable<UIGestureRecognizerType> = pan.rx_event.asObservable().flatMap { gesture -> Observable<UIGestureRecognizerType> in
+            return Observable.just(gesture as UIGestureRecognizerType)
+        }
+        let rotateObservable: Observable<UIGestureRecognizerType> = rotate.rx_event.asObservable().flatMap { gesture -> Observable<UIGestureRecognizerType> in
+            return Observable.just(gesture as UIGestureRecognizerType)
+        }
+        
+        gestureReactor = IntegratedReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) }, panGestureObservable: panObservable, rotateGestureObservable: rotateObservable)
 
         super.init(coder: aDecoder)
     }
     
+    // TODO as we like to have non-optional and non-implicitly-unwrapped properties, we need to execute the setup code in both initializers - unfortunately we can not call instance helper functions here with the current version of swift
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         pan = UIPanGestureRecognizer()
         rotate = UIRotationGestureRecognizer()
-        gestureReactor = IntegratedReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) }, panGestureEvent: pan.rx_event, rotateGestureEvent: rotate.rx_event)
+
+        // workaround to convert ControlEvent<UIGestureRecognizer> to Observable<UIGestureRecognizerType>
+        let panObservable: Observable<UIGestureRecognizerType> = pan.rx_event.asObservable().flatMap { gesture -> Observable<UIGestureRecognizerType> in
+            return Observable.just(gesture as UIGestureRecognizerType)
+        }
+        let rotateObservable: Observable<UIGestureRecognizerType> = rotate.rx_event.asObservable().flatMap { gesture -> Observable<UIGestureRecognizerType> in
+            return Observable.just(gesture as UIGestureRecognizerType)
+        }
+        
+        gestureReactor = IntegratedReactiveGestureReactor(timerCreator: { interval in ReactiveTimerFactory.reactiveTimer(interval: interval) }, panGestureObservable: panObservable, rotateGestureObservable: rotateObservable)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }

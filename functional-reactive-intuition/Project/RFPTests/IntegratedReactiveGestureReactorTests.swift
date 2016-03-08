@@ -8,23 +8,23 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
 
     var sut: IntegratedReactiveGestureReactor!
     var mockDelegate: MockGestureReactorDelegate!
-    var mockPanGestureEvent: ControlEvent<UIGestureRecognizerType>!
-    var mockRotateGestureEvent: ControlEvent<UIGestureRecognizerType>!
+    var mockPanGestureObservable: Observable<UIGestureRecognizerType>!
+    var mockRotateGestureObservable: Observable<UIGestureRecognizerType>!
     var mockTimerCreatorCalled = 0
     // FIXME cannot be weak, so we cannot test the same way as in ImperativeGestureReactorTests
     var mockTimer: MockReactiveTimer?
     
     override func setUp() {
         super.setUp()
-//        mockPanGestureEvent = ???
-//        mockRotateGestureEvent = ???
+//        mockPanGestureObservable = ???
+//        mockRotateGestureObservable = ???
         let timerCreator: ReactiveTimerCreator = { [unowned self] interval in
             self.mockTimerCreatorCalled += 1
             let mockTimer = MockReactiveTimer(interval: interval)
             self.mockTimer = mockTimer
             return mockTimer.asObservable().skip(1)
         }
-        sut = IntegratedReactiveGestureReactor(timerCreator: timerCreator, panGestureEvent: mockPanGestureEvent, rotateGestureEvent: mockRotateGestureEvent)
+        sut = IntegratedReactiveGestureReactor(timerCreator: timerCreator, panGestureObservable: mockPanGestureObservable, rotateGestureObservable: mockRotateGestureObservable)
         mockDelegate = MockGestureReactorDelegate()
         sut.delegate = mockDelegate
     }

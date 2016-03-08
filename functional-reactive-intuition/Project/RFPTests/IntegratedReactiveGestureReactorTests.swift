@@ -10,14 +10,18 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     var mockDelegate: MockGestureReactorDelegate!
     var mockPanGestureObservable: Observable<UIGestureRecognizerType>!
     var mockRotateGestureObservable: Observable<UIGestureRecognizerType>!
+    var mockPanVariable: Variable<UIGestureRecognizerType>!
+    var mockRotateVariable: Variable<UIGestureRecognizerType>!
     var mockTimerCreatorCalled = 0
     // FIXME cannot be weak, so we cannot test the same way as in ImperativeGestureReactorTests
     var mockTimer: MockReactiveTimer?
     
     override func setUp() {
         super.setUp()
-//        mockPanGestureObservable = ???
-//        mockRotateGestureObservable = ???
+        mockPanVariable = Variable(MockPanGestureRecognizer(state: .Possible))
+        mockRotateVariable = Variable(MockRotateGestureRecognizer(state: .Possible))
+        mockPanGestureObservable = mockPanVariable.asObservable().skip(1)
+        mockRotateGestureObservable = mockRotateVariable.asObservable().skip(1)
         let timerCreator: ReactiveTimerCreator = { [unowned self] interval in
             self.mockTimerCreatorCalled += 1
             let mockTimer = MockReactiveTimer(interval: interval)
@@ -45,7 +49,7 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganPanGesture() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 0)
         XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -56,7 +60,7 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganRotateGesture() {
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 0)
         XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -67,9 +71,9 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganPanEndedPanBeganRotateGesture() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 0)
         XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -80,8 +84,8 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGestures() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
         XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -92,9 +96,9 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndEndedRotate() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
         XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -105,8 +109,8 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedOnce() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
@@ -118,10 +122,10 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedOnceAndEndedRotate() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
         XCTAssertEqual(mockDelegate.didTickCalled, 1)
@@ -132,8 +136,8 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedTwice() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         
@@ -146,8 +150,8 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedThrice() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
@@ -161,8 +165,8 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFrice() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
@@ -177,13 +181,13 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndPanEnded() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
         XCTAssertEqual(mockDelegate.didTickCalled, 3)
@@ -194,12 +198,12 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedTwiceAndPanEndedAndPanBeganAgain() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 2)
         XCTAssertEqual(mockDelegate.didTickCalled, 2)
@@ -210,12 +214,12 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndPanBeganAgain_ignoreAdditionalBegans() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
         XCTAssertEqual(mockDelegate.didTickCalled, 0)
@@ -226,13 +230,13 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndPanBeganAgain() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 1)
         XCTAssertEqual(mockDelegate.didTickCalled, 3)
@@ -243,14 +247,14 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedPanGestureAndBeganPanAgain() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 2)
         XCTAssertEqual(mockDelegate.didTickCalled, 3)
@@ -261,14 +265,14 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedRotateGestureAndBeganRotateAgain() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 2)
         XCTAssertEqual(mockDelegate.didTickCalled, 3)
@@ -279,16 +283,16 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgain() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 2)
         XCTAssertEqual(mockDelegate.didTickCalled, 3)
@@ -299,16 +303,16 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedOnce() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         
         XCTAssertEqual(mockDelegate.didStartCalled, 2)
@@ -320,16 +324,16 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedFrice() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
@@ -344,22 +348,22 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedFriceAndEndedBothGestures() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 2)
         XCTAssertEqual(mockDelegate.didTickCalled, 6)
@@ -370,24 +374,24 @@ class IntegratedReactiveGestureReactorTests: XCTestCase {
     }
     
     func testBeganBothGesturesAndTickedFriceAndEndedBothGesturesAndBeganBothAgainAndTickedFriceAndEndedBothGesturesAndStartedBothAgain() {
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
         mockTimer!.mockExecuteOnTick()
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Ended))
-        sut.handlePan(MockPanGestureRecognizer(state: .Ended))
-        sut.handleRotate(MockRotateGestureRecognizer(state: .Began))
-        sut.handlePan(MockPanGestureRecognizer(state: .Began))
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Ended)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Ended)
+        mockRotateVariable.value = MockRotateGestureRecognizer(state: .Began)
+        mockPanVariable.value = MockPanGestureRecognizer(state: .Began)
         
         XCTAssertEqual(mockDelegate.didStartCalled, 3)
         XCTAssertEqual(mockDelegate.didTickCalled, 6)
